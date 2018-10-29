@@ -5,11 +5,13 @@ class ToDoList extends React.Component {
     render() {
         return(
             <div className="todo-list">
-                <ul className="todo-items">
-                {Object.keys(this.props.toDoItems).map(item =>
-                    <ToDoItem item={this.props.toDoItems[item]} />
-                )}
-                </ul>
+                <table className="todo-items table table-borderless">
+                    <tbody>
+                        {Object.keys(this.props.toDoItems).map(item =>
+                            <ToDoItem item={this.props.toDoItems[item]} />
+                        )}
+                    </tbody>
+                </table>
             </div>
         )
     }

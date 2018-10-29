@@ -18,12 +18,19 @@ class App extends React.Component {
         const todo = {
             uuid: uuid(),
             text: text,
-            done: false
+            done: false  
         }
         this.setState(state => {
             state.toDoItems[todo.uuid] = todo;
             return state
         })
+    }
+
+    updateToDoText = (uuid, text) => {
+        // this.setState(state => {
+        
+        //     return state
+        // }
 
     }
 
