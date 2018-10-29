@@ -1,10 +1,15 @@
 import React from 'react';
+import ToDoItem from './ToDoItem'
 
 class ToDoList extends React.Component {
     render() {
         return(
-            <div className="alert alert-info">
-                <p>This where my bucket list items will be.</p>
+            <div className="todo-list">
+                <ul className="todo-items">
+                {Object.keys(this.props.toDoItems).map(item =>
+                    <ToDoItem item={this.props.toDoItems[item]} />
+                )}
+                </ul>
             </div>
         )
     }

@@ -24,6 +24,7 @@ class App extends React.Component {
             state.toDoItems[todo.uuid] = todo;
             return state
         })
+
     }
 
     render() {
@@ -31,7 +32,7 @@ class App extends React.Component {
             <div className="container">
                 <Header tagline="These are my bucket list items" />
                 <ToDoForm addToDo={this.addToDo} />
-                <ToDoList />
+                <ToDoList toDoItems={this.state.toDoItems} />
             </div>
         )
     }
