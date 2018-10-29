@@ -6,8 +6,9 @@ class ToDoForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.textInput.current.value);
-    console.log(this.textInput2.current.value);
+    const text = this.textInput.current.value;
+    this.props.addToDo(text);
+    event.currentTarget.reset();
   }
 
   render() {
@@ -19,13 +20,6 @@ class ToDoForm extends React.Component {
           type="text"
           placeholder="Add a new bucket list item ..."
           ref={this.textInput}
-        />
-        <input
-          name="two"
-          className="form-control"
-          type="text"
-          placeholder="Add another item ..."
-          ref={this.textInput2}
         />
         <div className="input-group-append">
           <button className="btn btn-outline-secondary" type="submit">
