@@ -13,10 +13,13 @@ class ToDoItem extends React.Component {
                     </div>
                 </td>
                 <td className="col-1">
-                    <input type="text" defaultValue={item.text} />
+                    <input type="text" defaultValue={item.text} 
+                    onChange={event => this.props.updateToDoText(item.uuid, event.target.value)} />
                 </td>
                 <td className="col-action">
-                    <p>X</p>
+                    <i className="icon-remove fa fa-remove"
+                    onClick={() => this.props.removeItem(item.uuid)} 
+                    />
                 </td>
             </tr>
         )

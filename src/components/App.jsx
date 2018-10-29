@@ -26,12 +26,18 @@ class App extends React.Component {
         })
     }
 
-    updateToDoText = (uuid, text) => {
-        // this.setState(state => {
-        
-        //     return state
-        // }
+    updateToDoText = (id, newText) => {
+        this.setState(state => {
+            state.toDoItems[id].text = newText
+            return state
+        })
+    }
 
+    removeItem = id => {
+        this.setState(state => {
+            delete state.toDoItems[id];
+            return state;
+        });
     }
 
     render() {
@@ -39,7 +45,7 @@ class App extends React.Component {
             <div className="container">
                 <Header tagline="These are my bucket list items" />
                 <ToDoForm addToDo={this.addToDo} />
-                <ToDoList toDoItems={this.state.toDoItems} />
+                <ToDoList toDoItems={this.state.toDoItems} updateToDoText={this.updateToDoText} removeItem={this.removeItem} />
             </div>
         )
     }
