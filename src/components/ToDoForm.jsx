@@ -13,7 +13,8 @@ class ToDoForm extends React.Component {
 
   render() {
     return (
-      <form className="input-group my-3" onSubmit={this.handleSubmit}>
+      <form className="input-group my-3"
+            onSubmit={this.handleSubmit}>
         <input
           name="one"
           className="form-control"
