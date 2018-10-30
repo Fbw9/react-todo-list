@@ -40,12 +40,23 @@ class App extends React.Component {
         });
     }
 
+    toggleToDoItem = (uuid, event) => {
+        const checkbox = event.target
+        this.setState(state => {
+            state.toDoItems[uuid].done = checkbox.checked;
+            return state;
+        })
+    }
+
     render() {
         return (
             <div className="container">
                 <Header tagline="These are my bucket list items" />
                 <ToDoForm addToDo={this.addToDo} />
-                <ToDoList toDoItems={this.state.toDoItems} updateToDoText={this.updateToDoText} removeItem={this.removeItem} />
+                <ToDoList toDoItems={this.state.toDoItems} 
+                updateToDoText={this.updateToDoText} 
+                removeItem={this.removeItem}
+                toggleToDoItem={this.toggleToDoItem} />
             </div>
         )
     }
