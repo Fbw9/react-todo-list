@@ -2,14 +2,13 @@ import React from 'react';
 
 class ToDoForm extends React.Component {
   textInput = React.createRef();
-  textInput2 = React.createRef();
 
   handleSubmit = event => {
     event.preventDefault();
     const text = this.textInput.current.value;
     this.props.addToDo(text);
     event.currentTarget.reset();
-  }
+  };
 
   render() {
     return (
