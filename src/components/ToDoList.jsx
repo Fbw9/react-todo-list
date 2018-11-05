@@ -1,20 +1,21 @@
 import React from 'react';
-import ToDoItems from "./ToDoItems";
+import ToDoItem from './ToDoItem'
 
 class ToDoList extends React.Component {
-
     render() {
-
-        return(
+        return (
             <div className="todo-list">
-                <table className={'todo-items table table-bordderless'}>
+                <table className="todo-items table table-borderless">
                     <tbody>
-                    {Object.keys(this.props.listItems).map( item =>
-                        <ToDoItems key={`${this.props.listItems[item].uuid}`}
-                                   item={this.props.listItems[item]}
-                                   updateInput={this.props.updateHandler}
-                                   deleteItem={this.props.removeHandler}/>
-                    )}
+                        {Object.keys(this.props.toDoItems).map(item =>
+                            <ToDoItem
+                                key={`item-${item}`}
+                                item={this.props.toDoItems[item]}
+                                updateToDoText={this.props.updateToDoText}
+                                removeItem={this.props.removeItem}
+                                toggleToDoItem={this.props.toggleToDoItem}
+                            />
+                        )}
                     </tbody>
                 </table>
             </div>
