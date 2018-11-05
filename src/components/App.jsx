@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
+import ToDoFilter from './ToDoFilter'
 import uuid from "uuid";
 import base from "../base";
 import firebase from 'firebase'
@@ -12,7 +13,8 @@ class App extends React.Component {
         super(props) 
 
         this.state = {
-            toDoItems: {}
+            toDoItems: {},
+            filter: "undone"
         }
     }
 
@@ -62,12 +64,21 @@ class App extends React.Component {
         })
     }
 
+    setFilter = filter => {
+        this.setState(state => {
+            state.filter = filter
+            return state
+        })
+    }
+
     render() {
         return (
             <div className="container">
                 <Header tagline="These are my bucket list items" />
                 <ToDoForm addToDo={this.addToDo} />
+                <ToDoFilter setFilter={this.setFilter} activeFilter={this.state.filter} />
                 <ToDoList toDoItems={this.state.toDoItems} 
+                filter={this.state.filter}
                 updateToDoText={this.updateToDoText} 
                 removeItem={this.removeItem}
                 toggleToDoItem={this.toggleToDoItem} />
