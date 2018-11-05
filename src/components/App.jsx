@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
+import ToDoFilter from './ToDoFilter';
 import base from '../base';
 import firebase from 'firebase';
 import uuid from "uuid";
@@ -9,10 +10,11 @@ import uuid from "uuid";
 
 class App extends React.Component {
     constructor(props) {
-        super(props) 
+        super(props);
 
         this.state = {
-            toDoItems: {}
+            toDoItems: {},
+            filter: 'all',
         }
     }
 
@@ -30,7 +32,7 @@ class App extends React.Component {
 
     updateToDoText = (id, newText) => {
         this.setState(state => {
-            state.toDoItems[id].text = newText
+            state.toDoItems[id].text = newText;
             return state
         })
     };
@@ -43,10 +45,9 @@ class App extends React.Component {
         firebase.database().ref(`todo-list/${id}`).remove();
     };
 
-    toggleToDoItem = (uuid, event) => {
-        const checkbox = event.target;
+    toggleToDoItem = (uuid) => {
         this.setState(state => {
-            state.toDoItems[uuid].done = checkbox.checked;
+            state.toDoItems[uuid].done = !state.toDoItems[uuid].done;
             return state;
         })
     };
@@ -61,15 +62,26 @@ class App extends React.Component {
         base.removeBinding(this.toDoItemRef);
     };
 
+    setFilter = ( filter ) => {
+
+        this.setState( state => {
+            state.filter = filter;
+           return state
+        })
+    };
+
     render() {
         return (
             <div className="container">
                 <Header tagline="These are my bucket list items" />
                 <ToDoForm addToDo={this.addToDo} />
-                <ToDoList toDoItems={this.state.toDoItems} 
-                updateToDoText={this.updateToDoText} 
-                removeItem={this.removeItem}
-                toggleToDoItem={this.toggleToDoItem} />
+                <ToDoFilter filterHandler={this.setFilter}
+                            activeFilter={this.state.filter}/>
+                <ToDoList   toDoItems={this.state.toDoItems}
+                            updateToDoText={this.updateToDoText}
+                            removeItem={this.removeItem}
+                            toggleToDoItem={this.toggleToDoItem}
+                            filter={this.state.filter}/>
             </div>
         )
     }
