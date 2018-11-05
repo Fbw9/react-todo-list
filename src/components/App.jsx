@@ -7,7 +7,6 @@ import uuid from "uuid";
 import base from "../base";
 import firebase from 'firebase'
 
-
 class App extends React.Component {
     constructor(props) {
         super(props) 
@@ -23,12 +22,12 @@ class App extends React.Component {
             uuid: uuid(),
             text: text,
             done: false  
-        }
+        };
         this.setState(state => {
             state.toDoItems[todo.uuid] = todo;
             return state
         })
-    }
+    };
 
     componentWillMount() {
         this.toDoItemRef = base.syncState("todo-list-items", {
@@ -46,7 +45,7 @@ class App extends React.Component {
             state.toDoItems[id].text = newText
             return state
         })
-    }
+    };
 
     removeItem = id => {
         this.setState(state => {
@@ -55,14 +54,23 @@ class App extends React.Component {
         });
         firebase.database().ref(`todo-list-items/${id}`).remove()
     }
-
     toggleToDoItem = (uuid, event) => {
-        const checkbox = event.target
+        const checkbox = event.target;
         this.setState(state => {
             state.toDoItems[uuid].done = checkbox.checked;
             return state;
         })
+    };
+
+    componentDidMount() {
+        this.toDoItemRef = base.syncState('todo-list', {
+            context: this,
+            state: 'toDoItems'
+        })
     }
+    componentWillUnmount() {
+        base.removeBinding(this.toDoItemRef);
+    };
 
     setFilter = filter => {
         this.setState(state => {
