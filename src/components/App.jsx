@@ -2,7 +2,9 @@ import React from 'react';
 import Header from './Header';
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
-import uuid from "uuid"
+import uuid from "uuid";
+import base from "../base";
+import firebase from 'firebase'
 
 
 class App extends React.Component {
@@ -26,6 +28,17 @@ class App extends React.Component {
         })
     }
 
+    componentWillMount() {
+        this.toDoItemRef = base.syncState("todo-list-items", {
+            context: this,
+            state: "toDoItems"
+        } )
+    }
+
+    componentWillUnmount() {
+        base.removeBinding(this.toDoItemRef)
+    }
+
     updateToDoText = (id, newText) => {
         this.setState(state => {
             state.toDoItems[id].text = newText
@@ -38,6 +51,7 @@ class App extends React.Component {
             delete state.toDoItems[id];
             return state;
         });
+        firebase.database().ref(`todo-list-items/${id}`).remove()
     }
 
     toggleToDoItem = (uuid, event) => {
