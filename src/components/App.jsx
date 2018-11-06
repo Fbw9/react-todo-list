@@ -62,16 +62,6 @@ class App extends React.Component {
         })
     };
 
-    componentDidMount() {
-        this.toDoItemRef = base.syncState('todo-list', {
-            context: this,
-            state: 'toDoItems'
-        })
-    }
-    componentWillUnmount() {
-        base.removeBinding(this.toDoItemRef);
-    };
-
     setFilter = filter => {
         this.setState(state => {
             state.filter = filter

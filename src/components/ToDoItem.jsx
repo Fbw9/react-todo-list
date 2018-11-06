@@ -8,7 +8,7 @@ class ToDoItem extends React.Component {
             <tr className="todo-item">
                 <td>
                     <div className="custom-control custom-checkbox">
-                        <input type="checkbox" onChange={(e) => this.props.toggleToDoItem(item.uuid, e)} />
+                        <input type="checkbox" checked={item.done} onChange={(e) => this.props.toggleToDoItem(item.uuid, e)} />
                         <label htmlFor=""></label>
                     </div>
                 </td>

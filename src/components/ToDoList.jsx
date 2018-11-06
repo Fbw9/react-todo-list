@@ -12,9 +12,10 @@ class ToDoList extends React.Component {
                 filtered.push(item);
             }
         }
+        console.log(filtered)
         return filtered
     }
-    
+
     render() {
         return (
             <div className="todo-list">
